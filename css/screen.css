@@ -61,6 +61,10 @@ a:visited {
   float: left;
 }
 
+#header p a {
+  color: #999;
+}
+
 #header ul {
   list-style: none;
   margin: 0;
@@ -124,7 +128,7 @@ background-image: -moz-linear-gradient(
 
 .mainbox .content {
   height: 550px;
-  width: 850px;
+  width: 900px;
   margin: 3px auto;
 }
 
@@ -133,15 +137,57 @@ background-image: -moz-linear-gradient(
 }
 
 .mainbox .content .front .frontleft {
+  margin-top: 25px;
   float: left;
   width: 200px;
-  margin-top: 100px;
+  -moz-box-shadow: 1px 1px 4px #bbb;
+  -webkit-box-shadow: 1px 1px 4px #bbb;
+  box-shadow: 1px 1px 4px #bbb;
+  padding: 10px;
+}
+
+.mainbox .content .front .frontleft p {
+//  margin-top: 5px;
+}
+
+.lastupdated {
+  margin-bottom: 25px;
+  font-style: italic;
+  font-size: 0.7em;
+  text-align: right;
+}
+
+.mainbox .content .front .frontleft ul {
+  line-style: none;
+}
+
+.mainbox .content .front .frontleft .frontleftheader {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.3em;
+  text-align: center;
+  text-shadow: 1px 1px 2px #ccc;
+}
+
+.mainbox .content .front .frontleft .frontleftheader img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 .mainbox .content .front .frontleft .qr img {
   margin-top: 15px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
 }
-
+.mainbox .content .front .frontleft .qr p {
+  font-size: 0.7em;
+}
 .mainbox .content .front .frontright {
   float: right;
   width: 650px;
