@@ -207,6 +207,28 @@ background-image: -moz-linear-gradient(
   margin-top: 50px;
 }
 
+.mainbox .content .mainleft {
+  float: left;
+  width: 600px;
+  line-height: 17px;
+}
+
+.mainbox .content .mainleft ul {
+  list-style: decimal;
+  padding-left: 25px;
+}
+
+.mainbox .content .mainleft li {
+  padding-top: 5px;
+}
+
+
+.mainbox .content .sidebarright {
+  float: right;
+  width: 250px;
+  margin-top: 50px;
+}
+
 .imageframe {
   border: 5px solid #fff;
   -moz-box-shadow: 1px 1px 5px #aaa;
@@ -221,6 +243,11 @@ background-image: -moz-linear-gradient(
   color: #666;
   text-shadow: 0px 1px 0px #ccc;
   font-style: italic;
+}
+
+.sidebarheader {
+  
+  border-bottom: 1px solid #999;
 }
 
 .footer {
