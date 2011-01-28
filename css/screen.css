@@ -75,8 +75,8 @@ a:visited {
 }
 
 .mainbox {
-  -moz-border-radius: 15px;
-  border-radius: 15px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
 background-image: -webkit-gradient(
     linear,
     left bottom,
