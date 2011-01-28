@@ -126,6 +126,14 @@ background-image: -moz-linear-gradient(
   right: -1px;
 }
 
+.mainbox .android {
+  float: right;
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+}
+
+
 .mainbox .content {
   height: 550px;
   width: 900px;
