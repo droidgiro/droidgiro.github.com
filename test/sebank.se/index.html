@@ -1,0 +1,431 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+
+<head id="IKPMaster_IKPHead"><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>
+	IKP - Betala/Ã¶verfÃ¶ra - Betalning - Registrera betalning
+</title>
+	<!-- Extra Stylesheets goes here -->
+    <script type="text/javascript">
+	    function refreshThis() {
+		    window.location.href = window.location.href;
+	    }
+    </script>
+	<!-- Fieldhelp JavaScript parameters goes here -->
+    
+    
+    <!-- Include yours javascript here -->
+    <script type="text/javascript">
+	function getParamObj(idx) {
+		return document.getElementById('IKPMaster_MainPlaceHolder_' + idx);
+	}
+
+	var oDt;				//calender object
+	function createCal(){
+	
+        if (getParamObj('A15').value != '') {        
+		    oDt = new datePopup('oDt', 308, 204, getParamObj('A5'), getParamObj('A15').value); //Create a new calender object
+		}
+	}
+
+	function SaveToRegisterInnerHtml(tabOrder, status) {
+		//This must be changed after generating the htx
+		if (status == true) { 
+			var sInnerHtml = '<input type="checkbox" checked="checked" class="checkbox" name="C12" value="J" tabindex="' + tabOrder + '"  onclick="toggleA12();"><a class="fieldhelp" href="#" onclick="return clh();" onmouseover="return slh(sb7r,sb7);"onmouseout="return hlh();" title="Klicka fÃ¶r att visa hjÃ¤lp." tabindex="-1">Spara mottagaren<\/a>';
+		}
+		else {
+			var sInnerHtml = '<input type="checkbox" class="checkbox" name="C12" value="J" tabindex="' + tabOrder + '"  onclick="toggleA12();"><a class="fieldhelp" href="#" onclick="return clh();" onmouseover="return slh(sb7r,sb7);"onmouseout="return hlh();" title="Klicka fÃ¶r att visa hjÃ¤lp." tabindex="-1">Spara mottagaren<\/a>';
+		}
+		
+		return sInnerHtml;
+	}
+
+	function changeReciever(index) {
+		if (index == 0) {
+			if (!getParamObj('MREG').checked) {		
+				getParamObj('MREG').checked = true;
+			}
+		}
+		else if (index == 1) {
+			if (!getParamObj('BG').checked) {		
+				getParamObj('BG').checked = true;
+			}
+		}
+		else {
+			if (getParamObj('A11').value.length==0) {
+				if (getParamObj('BG').checked) {
+					return false;
+				}
+			}
+			if (!getParamObj('PG').checked) {		
+				getParamObj('PG').checked = true;
+			}
+		}
+		switch(index) {
+			case 0:
+				HideLayer('SaveToRegisterBG');
+				FillLayer('SaveToRegisterBG', '');
+				HideLayer('SaveToRegisterPG');
+				FillLayer('SaveToRegisterPG', '');
+				getParamObj('A3').value='';
+				getParamObj('A11').value='';
+				getParamObj('A12').value = '';
+				getParamObj('A4').focus();
+				break;
+			case 1:
+				//BG
+				if (IsLayerVisible('SaveToRegisterPG')) {
+					HideLayer('SaveToRegisterPG');
+					FillLayer('SaveToRegisterBG', '');
+				}
+				if (getParamObj('BTN_ADD') != null) {
+					if (!IsLayerVisible('SaveToRegisterBG')) {
+						ShowLayer('SaveToRegisterBG', 0, 0);
+						FillLayer('SaveToRegisterBG', SaveToRegisterInnerHtml(6, false));
+					}
+				}
+				getParamObj('A10').selectedIndex=0;
+				getParamObj('A11').value='';
+				getParamObj('A3').focus();
+				break;
+			case 2:
+				//PG
+				if (IsLayerVisible('SaveToRegisterBG')) {
+					HideLayer('SaveToRegisterBG');
+					FillLayer('SaveToRegisterPG', '');
+				}
+				if (getParamObj('BTN_ADD') != null) {
+					if (!IsLayerVisible('SaveToRegisterPG')) {
+						ShowLayer('SaveToRegisterPG', 0, 0);
+						FillLayer('SaveToRegisterPG', SaveToRegisterInnerHtml(9, false));
+					}
+				}
+				getParamObj('A10').selectedIndex=0;
+				getParamObj('A3').value='';
+				getParamObj('A11').focus();
+				break;
+		}
+	}
+	function SetRbMeddelande(index) {
+		if (index == 0) {
+			if (!getParamObj('OCR').checked) {
+				getParamObj('OCR').checked = true;
+			}
+		}
+		else {
+			if (!getParamObj('Meddelande').checked) {
+				getParamObj('Meddelande').checked = true;
+			}
+		}
+		
+		getParamObj('A7').value='';
+		getParamObj('A8').value='';
+
+		if(index==0) {
+			HideLayer('MessageToReciever');
+			ShowLayer('OCRNumber', 0, 0);
+            getParamObj('A7').style.width = "230px";
+			getParamObj('A7').setAttribute("MaxLength", 25);
+			getParamObj('A7').focus();
+		}
+		else {
+			ShowLayer('OCRNumber');
+			ShowLayer('MessageToReciever');
+			getParamObj('A7').style.width = "320px";
+			getParamObj('A8').style.width = "320px";
+			getParamObj('A7').setAttribute("MaxLength", 50);
+			getParamObj('A7').focus();
+		}
+	}
+
+	function InitLayers() {		
+		if (document.aspnetForm.IKPMaster$MainPlaceHolder$A2[0].checked==true) {
+			//Mottagarregister
+			HideLayer('SaveToRegisterPG');
+			HideLayer('SaveToRegisterBG');
+		}
+		else if (document.aspnetForm.IKPMaster$MainPlaceHolder$A2[1].checked==true) {
+			//BG
+			if (getParamObj('BTN_ADD') != null) {
+				HideLayer('SaveToRegisterPG');			
+				FillLayer('SaveToRegisterPG', '');
+				ShowLayer('SaveToRegisterBG', 0, 0);
+				if (getParamObj('A12').value == 'J') {
+					FillLayer('SaveToRegisterBG', SaveToRegisterInnerHtml(9, true));
+				}
+			}
+		}
+		else {
+			//PG
+			if (getParamObj('BTN_ADD') != null) {
+				HideLayer('SaveToRegisterBG');			
+				FillLayer('SaveToRegisterBG', '');			
+				ShowLayer('SaveToRegisterPG', 0, 0);
+				if (getParamObj('A12').value == 'J') {
+					FillLayer('SaveToRegisterPG', SaveToRegisterInnerHtml(9, true));
+				}
+			}
+		}
+
+		if (getParamObj('OCR').checked==true) {
+			//OCR
+			ShowLayer('OCRNumber', 0, 0);
+			HideLayer('MessageToReciever');
+			getParamObj('A7').setAttribute("MaxLength", 25);
+            getParamObj('A7').style.width = "230px";
+		}
+		else {
+			//Meddelande
+			ShowLayer('OCRNumber', 0 , 0 );
+			ShowLayer('MessageToReciever', 0 , 0);
+			getParamObj('A7').setAttribute("MaxLength", 50);
+            getParamObj('A7').style.width = "320px";
+            getParamObj('A8').style.width = "320px";
+		}
+	}
+
+	function toggleA12() {
+		if (getParamObj('A12').value == 'J') {
+			getParamObj('A12').value = '';
+		}
+		else {
+			getParamObj('A12').value = 'J';	
+		}
+	}
+	</script>
+    
+    <!-- Include yours fieldhelp here -->
+    
+</head>
+	<body>
+	    <form name="aspnetForm" method="post" action="wow1103a.aspx?M1=show" id="aspnetForm">
+<div>
+</div>
+
+<div>
+</div>
+			
+		    <div id="pagepanel" class="none">
+			    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+			    | This is the panel of the page.                                       |
+			    | It's a holder of the entire document and contain two columns.        |
+			    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+			    <div id="pagehead">
+				    <!-- This is the head of the page. -->
+			    </div>
+			    <div id="pagebody">
+				    <div id="mainpanel">
+					    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+					    | This is the main panel.                                      |
+					    | It's a holder of the big column on the page.                 |
+					    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+					    <div id="mainhead">
+                            <div id="webuser">
+	                            
+                            </div>
+						    <!-- This is the head of the main panel -->
+						    <table>
+							    <tr>
+								    <td valign="baseline" align="left"><h1>Registrera betalning</h1>
+								    </td>
+								    <td valign="baseline" align="right">
+                                        &nbsp;&nbsp;
+									    <a id="IKPMaster_hplPrint" class="print" href="javascript:doPrint();">Skriv ut</a>&nbsp;&nbsp;<a href="" class="pagehelp">Bra att veta</a>
+							        </td>
+                               </tr>
+						    </table>
+					    </div>
+					    <div id="mainbody">
+                            
+                            
+    
+    <div id="IKPMaster_MainPlaceHolder_pnlMain">
+	
+	    <!-- Main content START here -->	    
+	    <div class="formpanel">
+		    <div class="panelhead"></div>
+		    <div class="panelbody">
+			    <table>
+				    <tr>
+					    <td>
+						    <table>
+								
+									<tr>
+										<td height="25" valign="top">FrÃ¥n konto</td>
+										<td colspan="3" valign="top">
+											
+											
+									
+								<tr>
+									<td height="25"></td>
+									<td colspan="3">											
+										
+									</td>
+								</tr>
+								
+									<tr>
+										<td>Till</td>
+										<td nowrap="nowrap">
+											<span class="radio"><input id="IKPMaster_MainPlaceHolder_MREG" type="radio" name="IKPMaster$MainPlaceHolder$A2" value="MREG" checked="checked" onclick="return changeReciever(0);" tabindex="2" /></span>
+											<a class="fieldhelp" href="#" onclick="return clh();" onmouseover="return slh(sb5r,sb5);"onmouseout="return hlh();" title="Klicka fÃ¶r att visa hjÃ¤lp." tabindex="-1">Sparad mottagare</a>
+										</td>   
+										<td colspan="2">
+											<select name="IKPMaster$MainPlaceHolder$A10" id="IKPMaster_MainPlaceHolder_A10" tabindex="3" onchange="return changeReciever(0);">
+		<option selected="selected" value="&lt;-VÃ¤lj->">&lt;-V&#228;lj-&gt;</option>
+										</td>
+									</tr>
+									<tr>
+										<td width="25%"></td>
+										<td width="25%">
+											<span class="radio"><input id="IKPMaster_MainPlaceHolder_BG" type="radio" name="IKPMaster$MainPlaceHolder$A2" value="BG" onclick="return changeReciever(1);" tabindex="4" /></span>
+											<a class="fieldhelp" href="#" onclick="return clh();" onmouseover="return slh(sb1r,sb1);"onmouseout="return hlh();" title="Klicka fÃ¶r att visa hjÃ¤lp." tabindex="-1">Bankgiro</a>
+										</td>
+										<td width="15%">
+											<input name="IKPMaster$MainPlaceHolder$A3" type="text" maxlength="11" id="IKPMaster_MainPlaceHolder_A3" tabindex="5" class="text" onkeyup="return changeReciever(1);" style="width:80px;" />
+										</td>
+										<td width="35%">
+											<div id="SaveToRegisterBG"></div>
+										</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td width="25%">
+											<span class="radio"><input id="IKPMaster_MainPlaceHolder_PG" type="radio" name="IKPMaster$MainPlaceHolder$A2" value="PG" onclick="return changeReciever(2);" tabindex="7" /></span>
+											<a class="fieldhelp" href="#" onclick="return clh();" onmouseover="return slh(sb6r,sb6);"onmouseout="return hlh();" title="Klicka fÃ¶r att visa hjÃ¤lp." tabindex="-1">Plusgiro</a>
+										</td>
+										<td>
+											<input name="IKPMaster$MainPlaceHolder$A11" type="text" maxlength="11" id="IKPMaster_MainPlaceHolder_A11" tabindex="8" class="text" onkeyup="return changeReciever(2);" style="width:80px;" />
+										</td>
+										<td><div id="SaveToRegisterPG"></div></td>
+									</tr>
+									<tr>
+										<td colspan="4">&nbsp;</td>
+									</tr>
+									
+										<tr>
+											<td><a class="fieldhelp" href="#" onclick="return clh();"onmouseover="return slh(sb2r,sb2);" onmouseout="return hlh();"title="Klicka fÃ¶r att visa hjÃ¤lp." tabindex="-1">Belopp</a></td>
+											<td colspan="3">
+												<input name="IKPMaster$MainPlaceHolder$A4" type="text" maxlength="10" id="IKPMaster_MainPlaceHolder_A4" tabindex="10" class="text" style="width:120px;" />
+											</td>
+										</tr>
+										
+									<tr>
+										<td><a class="fieldhelp" href="#" onclick="return clh();"onmouseover="return slh(sb3r,sb3);" onmouseout="return hlh();"title="Klicka fÃ¶r att visa hjÃ¤lp." tabindex="-1">Mottagaren tillhanda</a></td>
+										<td valign="top" colspan="3">
+											<input name="IKPMaster$MainPlaceHolder$A5" type="text" maxlength="10" id="IKPMaster_MainPlaceHolder_A5" tabindex="11" class="text" style="width:120px;" />
+											<script type="text/javascript">calenderShowIcon("oDt", getParamObj('A15').value);</script>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="4">&nbsp;</td>
+									</tr>
+									
+										<tr>
+											<td></td>
+											<td colspan="3">
+												<span class="radio"><input id="IKPMaster_MainPlaceHolder_OCR" type="radio" name="IKPMaster$MainPlaceHolder$A6" value="OCR" checked="checked" onclick="return SetRbMeddelande(0);" tabindex="12" /></span>
+												<a class="fieldhelp" href="#" onclick="return clh();"onmouseover="return slh(sb4r,sb4);" onmouseout="return hlh();" title="Klicka fÃ¶r att visa hjÃ¤lp." tabindex="-1">OCR-nummer</a>&nbsp;
+												<span class="radio"><input id="IKPMaster_MainPlaceHolder_Meddelande" type="radio" name="IKPMaster$MainPlaceHolder$A6" value="Meddelande" onclick="return SetRbMeddelande(1);" tabindex="13" /></span>
+												Meddelande om OCR-nr ej finns (max 50 tecken/rad)
+											</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td colspan="3">
+												<div id="OCRNumber">
+													<input name="IKPMaster$MainPlaceHolder$A7" type="text" maxlength="50" id="IKPMaster_MainPlaceHolder_A7" tabindex="14" class="text" style="width:230px;" />
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td colspan="3">
+												<div id="MessageToReciever">
+													<input name="IKPMaster$MainPlaceHolder$A8" type="text" maxlength="50" id="IKPMaster_MainPlaceHolder_A8" tabindex="15" class="text" style="width:230px;" />
+												</div>
+											</td>
+										</tr>
+									
+									<tr>
+										<td nowrap="nowrap"><a class="fieldhelp" href="#" onclick="return clh();" onmouseover="return slh(sb8r,sb8);" onmouseout="return hlh();" title="Klicka fÃ¶r att visa hjÃ¤lp." tabindex="-1">Egen anteckning</a></td>
+										<td colspan="3">
+											<input name="IKPMaster$MainPlaceHolder$A13" type="text" maxlength="20" id="IKPMaster_MainPlaceHolder_A13" tabindex="16" class="text" style="width:150px;" />&nbsp;(ej obl.)
+										</td>
+									</tr>
+									
+									<tr>
+										<td colspan="4">&nbsp;</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td colspan="3">
+											<input type="submit" name="IKPMaster$MainPlaceHolder$BTN_ADD" value="LÃ¤gg i uppdragslistan" id="IKPMaster_MainPlaceHolder_BTN_ADD" tabindex="17" class="button" />									
+										</td>				
+									</tr>
+								
+						    </table>
+					    </td>
+				    </tr>
+			    </table>
+			    
+
+
+
+		    </div>
+			<div class="panelfoot">						
+			    <div id="IKPMaster_MainPlaceHolder_pnlBottom">
+			
+		            <table>
+	                    <tr>
+                            <td>
+                                
+                                
+                                
+                                
+                            </td>
+                        </tr>
+                    </table>             
+                
+	</div>            
+		    </div>
+	    </div>
+	    <!-- Main content END here   -->
+    
+</div>
+        
+
+					    </div>
+					    <div id="mainfoot">
+					    </div>
+				    </div>
+					<div id="sidepanel" style="display:block">
+						<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+						| This is the side panel.                                      |
+						| It's a placeholder for messages, help texts, list panels etc.|
+						- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+						<div id="sidehead">
+						</div>
+						<div id="sidebody">
+							<!-- Side content START here -->
+							<!-- Side content END here   -->
+						</div>
+						<div id="sidefoot">
+					    
+					    
+						</div>
+					</div>
+			    </div>
+			    <div id="pagefoot">
+				    <!-- This is the foot of the page. It contains a standard page footer. -->
+				    <table width="100%" cellpadding="0" cellspacing="0">
+					    <tr>
+						    <td align="left">Â© <span id="IKPMaster_copyYear"></span> Skandinaviska Enskilda Banken AB (publ)</td>
+						    <td align="right"><span id="IKPMaster_webTime">2011-01-29 12:29:55</span></td>
+					    </tr>
+				    </table>
+			    </div>
+		    </div>
+
+        </form>
+	</body>
+</html>
