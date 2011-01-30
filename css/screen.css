@@ -135,10 +135,10 @@ background-image: -moz-linear-gradient(
 
 
 .mainbox .content {
-  height: 550px;
   width: 900px;
   margin: 3px auto;
   margin-top: 35px;
+  margin-bottom: 50px;
 }
 
 .mainbox .content .frontleft {
@@ -196,6 +196,7 @@ background-image: -moz-linear-gradient(
 .mainbox .content .frontright {
   float: right;
   width: 600px;
+  margin-bottom: 80px;
 }
 
 .mainbox .content p {
@@ -211,6 +212,7 @@ background-image: -moz-linear-gradient(
   float: left;
   width: 600px;
   line-height: 17px;
+  margin-bottom: 80px;
 }
 
 .mainbox .content .mainleft ul {
@@ -228,6 +230,13 @@ background-image: -moz-linear-gradient(
   width: 250px;
   margin-top: 50px;
 }
+
+.mainbox .content .maintotal {
+  width: 850px;
+  padding-top: 5px;
+  margin-bottom: 80px;
+}
+
 
 .imageframe {
   border: 5px solid #fff;
@@ -270,4 +279,74 @@ background-image: -moz-linear-gradient(
 .footer .copyright {
   color: #777;
   font-size: 0.8em;
+}
+
+table.banktable {
+  font-family: “Lucida Grande”, sans-serif;
+  font-size: 14.4px;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: normal;
+  letter-spacing: normal;
+  line-height: 1.5em;
+  border-collapse:separate;
+  //border: 5px solid #bbb;
+  -moz-box-shadow: 2px 2px 3px #aaa;
+  -webkit-box-shadow: 2px 2px 3px #aaa;
+  box-shadow: 2px 2px 3px #aaa;
+  margin: 3px auto 0px;
+}
+
+.banktable thead th, .banktable tbody th{
+    padding:15px;
+    color:#fff;
+    text-shadow:1px 1px 1px #568F23;
+    border:1px solid #93CE37;
+    border-bottom:3px solid #9ED929;
+    background-color:#9DD929;
+    background:-webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.02, rgb(123,192,67)),
+        color-stop(0.51, rgb(139,198,66)),
+        color-stop(0.87, rgb(158,217,41))
+        );
+    background: -moz-linear-gradient(
+        center bottom,
+        rgb(123,192,67) 2%,
+        rgb(139,198,66) 51%,
+        rgb(158,217,41) 87%
+        );
+    -webkit-border-top-left-radius:5px;
+    -webkit-border-top-right-radius:5px;
+    -moz-border-radius:5px 5px 0px 0px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+}
+
+.banktable thead th:empty{
+    background:transparent;
+    border:none;
+}
+
+
+.tested {
+    background-color:#8AED8D;
+}
+.not_implemented {
+    background-color:#ED8A8A;
+}
+.implemented {
+    background-color:#E8ED8A;
+}
+.banktable tbody td  {
+    padding:10px;
+    text-align:center;
+    border: 2px solid #E7EFE0;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+    color:#222;
+    text-shadow:1px 1px 1px #aaa;
 }
